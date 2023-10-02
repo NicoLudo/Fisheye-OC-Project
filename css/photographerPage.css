@@ -1,0 +1,86 @@
+form input,
+.contact_button {
+    border: none;
+}
+
+form input,
+.contact_button,
+.modal {
+    border-radius: 5px;
+}
+
+.modal header img,
+.contact_button {
+    cursor: pointer;
+}
+
+.modal,
+form,
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal,
+.modal header {
+    justify-content: space-between;
+}
+
+.modal header,
+form,
+form div,
+form input {
+    width: 100%;
+}
+
+#contact_modal {
+    display: none;
+}
+
+.photograph-header {
+    background-color: #FAFAFA;
+    height: 300px;
+    margin: 0 100px;
+}
+
+.contact_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    background-color: #901C1C;
+}
+
+.modal {
+    background-color: #DB8876;
+    width: 50%;
+    align-items: center;
+    padding: 35px;
+    margin: auto;
+}
+
+.modal header h2 {
+    font-size: 64px;
+    font-weight: normal;
+    text-align: center;
+}
+
+form {
+    align-items: flex-start;
+}
+
+form label {
+    color: #312E2E;
+    font-size: 36px;
+}
+
+form div {
+    align-items: self-start;
+    margin-bottom: 26px;
+}
+
+form input {
+    height: 68px;
+}

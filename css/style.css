@@ -1,16 +1,24 @@
-@import url("photographer.css");
+@import url("photographerPage.css");
 
 body {
     font-family: "DM Sans", sans-serif;
+}
+
+body,
+.photographer_section article p,
+.photographer_section article h2 {
     margin: 0;
 }
 
+header,
+.photographer_section article {
+    display: flex;
+    align-items: center;
+}
 
 header {
-    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     height: 90px;
 }
 
@@ -29,13 +37,12 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
     margin-top: 100px;
+    align-items: start;
 }
 
 .photographer_section article {
     justify-self: center;
-    display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -47,4 +54,6 @@ h1 {
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
 }
