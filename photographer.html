@@ -19,27 +19,68 @@
     </a>
   </header>
   <main id="main" role="content">
+
     <div class="photograph-header">
       <button class="contact_button" onclick="displayModal()" aria-label="Contactez-moi">Contactez-moi</button>
     </div>
-  </main>
-  <div id="contact_modal" role="dialog">
-    <div class="modal">
-      <header>
-        <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" alt="Fermer la fenêtre" />
-      </header>
-      <form>
-        <div>
-          <label for="firstName">Prénom</label>
-          <input id="firstName" name="firstName" />
-        </div>
-        <button class="contact_button">Envoyer</button>
-      </form>
+
+    <div id="contact_modal" role="dialog">
+      <div class="modal">
+
+        <header class="header_form">
+          <div>
+            <h2>Contactez-moi</h2>
+            <p id="photographer_name"></p>
+          </div>
+          <img src="assets/icons/close.svg" onclick="closeModal()" alt="Fermer la fenêtre" />
+        </header>
+
+        <form class="contactForm">
+          <div>
+            <label for="firstName">Prénom</label>
+            <input id="firstName" name="First name" aria-required="true" required />
+          </div>
+
+          <div>
+            <label for="lastName">Nom</label>
+            <input id="lastName" name="Last name" aria-required="true" required />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" aria-required="true" required />
+          </div>
+
+          <div>
+            <label for="message">Votre message</label>
+            <textarea id="message" name="Your message" aria-required="true" required></textarea>
+          </div>
+
+          <button class="contact_button" type="submit">Envoyer</button>
+        </form>
+
+      </div>
     </div>
-  </div>
+
+    <div class="sort-bar">
+      <label for="sort-select"><span>Trier par :</span></label>
+      <div class="select-container">
+        <select id="sort-select">
+          <option value="popularite" selected>Popularité</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
+        </select>
+        <div id="arrow-icon" class="arrow-down"></div>
+      </div>
+    </div>
+    <div id="media-list"></div>
+    <div class="photographer-info-box">
+      <p><span id="photographer-price"></span>€ / Jour</p>
+      <p><span id="total-likes"></span> ❤️</p>
+    </div>
+  </main>
   <script type="module" src="/scripts/pages/photographerPage.js"></script>
-  <script type="module" src="/scripts/utils/contactForm.js"></script>
+  <script src="/scripts/utils/contactForm.js"></script>
 </body>
 
 </html>

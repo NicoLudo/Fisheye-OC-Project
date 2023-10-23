@@ -1,20 +1,12 @@
 class Photographer {
-    // Initialisation des propriétés
     constructor({ id, name, city, country, tagline, price, portrait }) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-        this.country = country;
-        this.tagline = tagline;
-        this.price = price;
-        this.portrait = portrait;
+        Object.assign(this, { id, name, city, country, tagline, price, portrait });
     }
 
-    // Méthode pour générer DOM
     getUserCardDOM() {
         const card = document.createElement('article');
-        card.className = 'photographer-card';
-        card.setAttribute('data-id', this.id);
+        card.classList.add('photographer-card');
+        card.dataset.id = this.id;
         card.setAttribute('aria-label', `Profil du photographe ${this.name}`);
 
         const link = document.createElement('a');
@@ -22,35 +14,30 @@ class Photographer {
 
         const img = document.createElement('img');
         img.src = `./src/images/portraits/${this.portrait}`;
-        img.alt = `${this.name}`;
+        img.alt = this.name;
 
         const name = document.createElement('h2');
         name.textContent = this.name;
 
-        // Ajouter les éléments img et name au lien
-        link.appendChild(img);
-        link.appendChild(name);
+        // Ajout de l'image et du nom dans le lien
+        link.append(img, name);
 
-        const location = document.createElement('p');
+        const location = document.createElement('span');
         location.textContent = `${this.city}, ${this.country}`;
-        location.className = 'photographer_location';
+        location.classList.add('photographer_location');
 
-        const tagline = document.createElement('p');
+        const tagline = document.createElement('span');
         tagline.textContent = this.tagline;
-        tagline.className = 'photographer_tagline';
+        tagline.classList.add('photographer_tagline');
 
-        const price = document.createElement('p');
+        const price = document.createElement('span');
         price.textContent = `${this.price}€ / jour`;
 
         // Ajout de tous les éléments
-        card.appendChild(link);
-        card.appendChild(location);
-        card.appendChild(tagline);
-        card.appendChild(price);
+        card.append(link, location, tagline, price);
 
         return card;
     }
-
 }
 
-export default Photographer
+export default Photographer;

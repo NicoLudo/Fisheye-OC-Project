@@ -1,63 +1,45 @@
 class Banner {
-    // Initialisation des propriétés
     constructor({ name, city, country, tagline, portrait }) {
-        this.name = name;
-        this.city = city;
-        this.country = country;
-        this.tagline = tagline;
-        this.portrait = portrait;
+        Object.assign(this, { name, city, country, tagline, portrait });
     }
 
-    // Méthode pour générer DOM
+    // Méthode utilitaire pour créer un élément DOM
+    createElement(tag, text, className) {
+        const element = document.createElement(tag);
+        if (text) element.textContent = text;
+        if (className) element.classList.add(className);
+        return element;
+    }
+
     getBannerDOM() {
-        const banner = document.createElement('div');
-        banner.className = 'banner-container';
+        const banner = this.createElement('div', null, 'banner-container');
 
-        // Colonne de gauche
-        const leftColumn = document.createElement('div');
-        leftColumn.className = 'left-column';
+        // Crée la colonne de gauche
+        const leftColumn = this.createElement('div', null, 'left-column');
+        const name = this.createElement('h1', this.name);
+        const location = this.createElement('p', `${this.city}, ${this.country}`, 'photographerBanner_location');
+        const tagline = this.createElement('p', this.tagline);
 
-        const name = document.createElement('h1');
-        name.textContent = this.name;
+        leftColumn.append(name, location, tagline);
 
-        const location = document.createElement('p');
-        location.textContent = `${this.city}, ${this.country}`;
-        location.className = 'photographerBanner_location';
-
-        const tagline = document.createElement('p');
-        tagline.textContent = this.tagline;
-
-        leftColumn.appendChild(name);
-        leftColumn.appendChild(location);
-        leftColumn.appendChild(tagline);
-
-        // Colonne du milieu
-        const middleColumn = document.createElement('div');
-        middleColumn.className = 'middle-column';
-
+        // Crée la colonne du milieu
+        const middleColumn = this.createElement('div', null, 'middle-column');
         const contactButton = document.querySelector('.contact_button');
+
         if (contactButton) {
-            contactButton.onclick = () => displayModal();
-        } else {
-            console.error('Bouton de contact non trouvée dans le HTML.')
+            middleColumn.appendChild(contactButton);
         }
 
-        middleColumn.appendChild(contactButton);
-
-        // Colonne de droite
-        const rightColumn = document.createElement('div');
-        rightColumn.className = 'right-column';
-
-        const img = document.createElement('img');
+        // Crée la colonne de droite
+        const rightColumn = this.createElement('div', null, 'right-column');
+        const img = this.createElement('img');
         img.src = `./src/images/portraits/${this.portrait}`;
-        img.alt = `${this.name}`;
+        img.alt = this.name;
 
         rightColumn.appendChild(img);
 
-        // Ajouter toutes les colonnes à la bannière
-        banner.appendChild(leftColumn);
-        banner.appendChild(middleColumn);
-        banner.appendChild(rightColumn);
+        // Ajoute toutes les colonnes à la bannière
+        banner.append(leftColumn, middleColumn, rightColumn);
 
         return banner;
     }
