@@ -18,7 +18,7 @@ class Banner {
         const leftColumn = this.createElement('div', null, 'left-column');
         const name = this.createElement('h1', this.name);
         const location = this.createElement('p', `${this.city}, ${this.country}`, 'photographerBanner_location');
-        const tagline = this.createElement('p', this.tagline);
+        const tagline = this.createElement('p', this.tagline, 'photographerBanner_tagline');
 
         leftColumn.append(name, location, tagline);
 

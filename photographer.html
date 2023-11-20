@@ -62,17 +62,25 @@
       </div>
     </div>
 
-    <div class="sort-bar">
-      <label for="sort-select"><span>Trier par :</span></label>
-      <div class="select-container">
-        <select id="sort-select">
-          <option value="popularite" selected>Popularité</option>
-          <option value="date">Date</option>
-          <option value="titre">Titre</option>
-        </select>
-        <div id="arrow-icon" class="arrow-down"></div>
+    <div id="sorting-controls">
+      <span id="selected-option-label">Trier par :</span>
+      <div class="sorting-options">
+        <div id="selected-option">Popularité</div>
+
+        <div id="dropdown-options" class="hidden">
+          <div class="sorting-option selected">
+            <a href="#" id="sort-popularity" data-sort="popularity">Popularité</a>
+          </div>
+          <div class="sorting-option">
+            <a href="#" id="sort-date" data-sort="date">Date</a>
+          </div>
+          <div class="sorting-option">
+            <a href="#" id="sort-title" data-sort="title">Titre</a>
+          </div>
+        </div>
       </div>
     </div>
+
     <div id="media-list"></div>
     <div class="photographer-info-box">
       <p><span id="photographer-price"></span>€ / Jour</p>
