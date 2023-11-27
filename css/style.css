@@ -30,7 +30,9 @@ body,
 .photographerBanner_location,
 .photographer_media_title,
 .photographer_media_likes,
-.lightbox-close-button {
+.lightbox-close-button,
+.lightbox-previous-button,
+.lightbox-next-button {
     color: var(--main-red);
 }
 
@@ -68,7 +70,9 @@ form input,
 .contact_button,
 .send_button,
 #message,
-.lightbox-close-button {
+.lightbox-close-button,
+.lightbox-previous-button,
+.lightbox-next-button {
     border: none;
 }
 
@@ -86,7 +90,9 @@ form input,
 .contact_button,
 .send_button,
 #selected-option,
-.lightbox-close-button {
+.lightbox-close-button,
+.lightbox-previous-button,
+.lightbox-next-button {
     cursor: pointer;
 }
 
@@ -154,7 +160,10 @@ div#contact_modal,
 #message,
 .modal,
 .lightbox-container,
-.lightbox-container img {
+.lightbox-container img,
+.click-overlay,
+.lightbox-container>.video-wrapper>video,
+.video-wrapper {
     width: 100%;
 }
 
@@ -275,12 +284,15 @@ form input,
 
 #contact_modal,
 #dropdown-options,
-.lightbox-overlay {
+.lightbox-overlay,
+.click-overlay {
     top: 0;
 }
 
 #contact_modal,
-.lightbox-overlay {
+.lightbox-overlay,
+.click-overlay,
+.lightbox-previous-button {
     left: 0;
 }
 
@@ -290,7 +302,9 @@ form input,
 }
 
 #sorting-controls,
-#selected-option {
+#selected-option,
+.video-wrapper,
+.lightbox-container>.video-wrapper>video {
     position: relative;
 }
 
@@ -319,13 +333,51 @@ form input,
 }
 
 .lightbox-close-button,
-#dropdown-options {
+#dropdown-options,
+.click-overlay,
+.lightbox-previous-button,
+.lightbox-next-button {
     position: absolute;
 }
 
 .lightbox-container,
 .modal {
-    padding: 35px;
+    padding: 75px;
+}
+
+.click-overlay,
+#contact_modal {
+    height: 100%;
+}
+
+.lightbox-container img,
+.lightbox-container>.video-wrapper>video {
+    height: 100%;
+    max-height: 800px;
+}
+
+.lightbox-close-button,
+.lightbox-previous-button,
+.lightbox-next-button {
+    background: none;
+    font-size: 120px;
+}
+
+.lightbox-previous-button,
+.lightbox-next-button {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-next-button,
+.lightbox-overlay {
+    right: 0;
+}
+
+.lightbox-previous-button,
+.lightbox-next-button,
+.lightbox-close-button {
+    z-index: 100;
 }
 
 /********************************************************************* SINGLE SELECTOR */
@@ -367,7 +419,6 @@ form input,
 
 #contact_modal {
     z-index: 9999;
-    height: 100%;
 }
 
 .modal {
@@ -450,22 +501,22 @@ form div {
 }
 
 .lightbox-overlay {
-    right: 0;
     z-index: 1000;
-}
-
-.lightbox-container img {
-    height: 800px;
-    object-fit: contain;
 }
 
 .lightbox-close-button {
     top: 5px;
     right: 5px;
-    font-size: 120px;
-    background: none;
     line-height: 0.6;
     padding: 0;
+}
+
+.lightbox-container img {
+    object-fit: contain;
+}
+
+.lightbox-container>.video-wrapper>video {
+    z-index: 3;
 }
 
 /********************************************************************* MEDIA QUERIES */
@@ -473,6 +524,7 @@ form div {
 @media (max-width: 1240px) {
     #media-list {
         grid-template-columns: 1fr 1fr;
+        gap: 30px;
     }
 }
 

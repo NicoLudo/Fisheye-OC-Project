@@ -17,15 +17,26 @@ class Lightbox {
         const lightboxContainer = document.createElement('div');
         lightboxContainer.classList.add('lightbox-container');
 
-        // Affichage de l'image ou de la vidéo dans la lightbox
+        // Affichage images et vidéos dans la lightbox
         if (this.media.image) {
             lightboxContainer.appendChild(this.media.createImageElement(true));
-        } else if (this.media.video) {
-            const videoElement = this.createVideoElement();
-            lightboxContainer.appendChild(videoElement);
-            const video = videoElement.querySelector('video');
-            video && video.play(); // Lecture automatique de la vidéo si elle existe
         }
+
+        if (this.media.video) {
+            lightboxContainer.appendChild(this.media.createVideoElement(true));
+            setTimeout(() => this.media.playVideo(), 0);
+        }
+
+        // Création des boutons de navigation de la lightbox
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '<';
+        prevButton.classList.add('lightbox-previous-button');
+        lightboxContainer.appendChild(prevButton);
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = '>';
+        nextButton.classList.add('lightbox-next-button');
+        lightboxContainer.appendChild(nextButton);
 
         // Création du bouton de fermeture de la lightbox
         const closeButton = document.createElement('button');

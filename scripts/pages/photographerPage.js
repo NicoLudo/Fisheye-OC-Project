@@ -6,8 +6,9 @@ import initDropdown from "../utils/dropdown.js";
 const urlParams = new URLSearchParams(window.location.search);
 const photographerId = urlParams.get('id');
 
-// Pour stocker les données globales
+// Variables 
 let globalData = null;
+let mediaDOMElements = {};
 
 // Éléments du DOM mis en cache
 const photographerNameElement = document.getElementById('photographer_name');
@@ -25,7 +26,6 @@ async function fetchData() {
         globalData = await response.json();
     } catch (error) {
         console.error("Il y a eu un problème avec l'opération fetch : ", error.message);
-        // Optionnel: Logique de nouvelle tentative ou gestion de l'erreur utilisateur
     }
 }
 
@@ -48,6 +48,11 @@ function setPhotographerNameInModal(photographerName) {
 function displayMedia(photographerId) {
     if (globalData) {
         let mediaList = globalData.media.filter(media => media.photographerId === parseInt(photographerId));
+        mediaList.forEach(mediaItem => {
+            const media = new PhotographerMedias(mediaItem);
+            mediaDOMElements[mediaItem.id] = media.getMediaDOM();
+            mediaContainer.appendChild(mediaDOMElements[mediaItem.id]);
+        });
         attachSortEventListeners(mediaList);
         sortAndDisplayMedia(mediaList, 'likes');
     }
@@ -55,10 +60,8 @@ function displayMedia(photographerId) {
 
 // Fonction pour afficher les médias triés
 function displaySortedMedia(sortedList) {
-    mediaContainer.innerHTML = "";
     sortedList.forEach(mediaItem => {
-        const media = new PhotographerMedias(mediaItem);
-        mediaContainer.appendChild(media.getMediaDOM());
+        mediaContainer.appendChild(mediaDOMElements[mediaItem.id]);
     });
 }
 
