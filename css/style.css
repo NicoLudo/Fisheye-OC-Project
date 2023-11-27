@@ -162,8 +162,9 @@ div#contact_modal,
 .lightbox-container,
 .lightbox-container img,
 .click-overlay,
-.lightbox-container>.video-wrapper>video,
-.video-wrapper {
+/* .lightbox-container>.video-wrapper>video, */
+.video-wrapper,
+video {
     width: 100%;
 }
 
@@ -351,7 +352,8 @@ form input,
 }
 
 .lightbox-container img,
-.lightbox-container>.video-wrapper>video {
+.lightbox-container>.video-wrapper>video,
+video {
     height: 100%;
     max-height: 800px;
 }

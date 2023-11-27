@@ -1,117 +1,150 @@
 import Lightbox from "../utils/lightbox.js";
 
 class Media {
-    constructor({ id, photographerId, title, image, video, likes, date, price }) {
+    constructor({ id, photographerId, title, image, video, likes, date, price }, allMedia, mediaIndex) {
         Object.assign(this, { id, photographerId, title, image, video, likes, date, price });
-        this.Lightbox = new Lightbox(this);
+        this.allMedia = allMedia;
+        this.mediaIndex = mediaIndex;
+        this.Lightbox = new Lightbox(this, this.allMedia, this.mediaIndex);
         this.isLiked = false;
     }
 
-    // Méthode pour obtenir l'extension d'un fichier à partir de son nom
+    // Méthode pour obtenir l'extension de fichier
     getFileExtension(filename) {
         return filename.split('.').pop();
     }
 
-    // Crée et renvoie un élément image HTML
-    createImageElement(isForLightbox = false) {
+    // Méthode pour créer un élément image
+    createImageElement() {
         const img = document.createElement('img');
         img.src = `./src/images/others/${this.image}`;
         img.alt = this.title;
-        img.loading = 'lazy'; // Ajout de lazy loading pour les images
+        img.loading = 'lazy';
+        img.tabIndex = 0;
 
-        if (!isForLightbox) {
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.Lightbox.openLightbox();
-            });
-        }
+        img.addEventListener('keyup', (e) => this.handleMediaKeyUp(e));
+        img.addEventListener('click', (e) => this.handleMediaClick(e));
         return img;
     }
 
-    // Crée et renvoie un élément vidéo HTML
+    // Méthode pour créer un élément vidéo
     createVideoElement(isForLightbox = false) {
         const videoWrapper = document.createElement('div');
         videoWrapper.classList.add('video-wrapper');
+        videoWrapper.tabIndex = 0;
 
+        const video = this.setupVideoElement(isForLightbox);
+        videoWrapper.appendChild(video);
+        videoWrapper.appendChild(this.createClickOverlay());
+
+        videoWrapper.addEventListener('keyup', (e) => this.handleMediaKeyUp(e));
+        videoWrapper.addEventListener('click', (e) => this.handleMediaClick(e));
+
+        return videoWrapper;
+    }
+
+    // Méthode pour configurer l'élément vidéo
+    setupVideoElement(isForLightbox) {
         const video = document.createElement('video');
-        video.controls = isForLightbox; // Active les contrôles de lecture pour la vidéo uniquement dans la lightbox
-        video.autoplay = isForLightbox; // Ajout de l'autoplay pour la vidéo uniquement dans la lightbox
-
-        video.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
+        video.controls = isForLightbox;
+        video.autoplay = isForLightbox;
 
         const source = document.createElement('source');
         source.src = `./src/images/others/${this.video}`;
         source.type = `video/${this.getFileExtension(this.video)}`;
-
         video.appendChild(source);
-        videoWrapper.appendChild(video);
 
-        // Création d'un overlay pour gérer les clics et ouvrir la lightbox
-        const clickOverlay = document.createElement('div');
-        clickOverlay.classList.add('click-overlay');
-        if (!isForLightbox) {
-            clickOverlay.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.Lightbox.openLightbox();
-            });
-        }
-
-        videoWrapper.appendChild(clickOverlay);
-        return videoWrapper;
+        return video;
     }
 
+    // Méthode pour créer un overlay de clic
+    createClickOverlay() {
+        const clickOverlay = document.createElement('div');
+        clickOverlay.classList.add('click-overlay');
+        clickOverlay.addEventListener('click', (e) => this.handleMediaClick(e));
+        return clickOverlay;
+    }
+
+    // Méthode pour gérer le clic sur les médias
+    handleMediaClick(e) {
+        e.stopPropagation();
+        this.Lightbox.openLightbox(this.allMedia, this.mediaIndex);
+    }
+
+    // Méthode pour gérer la touche 'Entrée' sur les médias
+    handleMediaKeyUp(e) {
+        if (e.key === 'Enter') {
+            this.Lightbox.openLightbox(this.allMedia, this.mediaIndex);
+        }
+    }
+
+    // Méthode pour lire la vidéo
     playVideo() {
         if (this.video) {
             const videoElement = document.querySelector(`video[src='./src/images/others/${this.video}']`);
-            videoElement && videoElement.play();
+            if (videoElement) {
+                videoElement.play();
+            }
         }
     }
 
-    // Crée et renvoie un élément DOM complet
+    // Méthode pour créer et renvoyer le DOM complet
     getMediaDOM() {
+        const mediaCard = this.createMediaCard();
+        this.appendMediaInfo(mediaCard);
+        return mediaCard;
+    }
+
+    // Méthode pour créer la carte média
+    createMediaCard() {
         const mediaCard = document.createElement('div');
+        mediaCard.dataset.id = this.id.toString();
         mediaCard.classList.add('media-card');
 
-        // Ajout d'une image ou de la preview vidéo en fonction du type de média
-        if (this.image) {
-            mediaCard.appendChild(this.createImageElement());
-        } else if (this.video) {
-            mediaCard.appendChild(this.createVideoElement());
-        }
+        const mediaElement = this.image ? this.createImageElement() : this.createVideoElement();
+        mediaCard.appendChild(mediaElement);
 
-        // Création de la div contenant les informations du média
+        return mediaCard;
+    }
+
+    // Méthode pour ajouter des informations sur le média
+    appendMediaInfo(mediaCard) {
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('info-div');
 
-        // Création et ajout du titre du média
-        const title = document.createElement('p');
-        title.textContent = this.title;
-        title.classList.add('photographer_media_title');
+        const title = this.createMediaTitle();
+        const likes = this.createLikesElement();
 
-        // Création et ajout du nombre de likes
-        const likes = document.createElement('p');
-        likes.textContent = `${this.likes} ♡`;
-        likes.classList.add('photographer_media_likes');
-
-        // Gestion du clic sur les likes
-        likes.addEventListener('click', () => {
-            // Inverse l'état du like et met à jour le nombre de likes
-            this.isLiked = !this.isLiked;
-            this.likes += this.isLiked ? 1 : -1;
-            likes.textContent = `${this.likes} ${this.isLiked ? '❤️' : '♡'}`;
-        });
-
-        // Utilisation de DocumentFragment pour améliorer les performances en évitant les reflows
         const fragment = document.createDocumentFragment();
         fragment.appendChild(title);
         fragment.appendChild(likes);
         infoDiv.appendChild(fragment);
 
-        // Ajout de la div d'informations à la carte média
         mediaCard.appendChild(infoDiv);
-        return mediaCard;
+    }
+
+    // Méthode pour créer le titre du média
+    createMediaTitle() {
+        const title = document.createElement('p');
+        title.textContent = this.title;
+        title.classList.add('photographer_media_title');
+        return title;
+    }
+
+    // Méthode pour créer l'élément des likes
+    createLikesElement() {
+        const likes = document.createElement('p');
+        likes.textContent = `${this.likes} ♡`;
+        likes.classList.add('photographer_media_likes');
+        likes.addEventListener('click', () => this.toggleLikes(likes));
+        return likes;
+    }
+
+    // Méthode pour basculer les likes
+    toggleLikes(likesElement) {
+        this.isLiked = !this.isLiked;
+        this.likes += this.isLiked ? 1 : -1;
+        likesElement.textContent = `${this.likes} ${this.isLiked ? '❤️' : '♡'}`;
     }
 }
 
