@@ -92,7 +92,9 @@ form input,
 #selected-option,
 .lightbox-close-button,
 .lightbox-previous-button,
-.lightbox-next-button {
+.lightbox-next-button,
+#media-list img,
+.video-wrapper {
     cursor: pointer;
 }
 
@@ -162,7 +164,6 @@ div#contact_modal,
 .lightbox-container,
 .lightbox-container img,
 .click-overlay,
-/* .lightbox-container>.video-wrapper>video, */
 .video-wrapper,
 video {
     width: 100%;
