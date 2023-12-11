@@ -1,0 +1,23 @@
+{
+  "name": "front-end-fisheye",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicoLudo/Fisheye-OC-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicoLudo/Fisheye-OC-Project/issues"
+  },
+  "homepage": "https://github.com/NicoLudo/Fisheye-OC-Project#readme",
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2"
+  }
+}
