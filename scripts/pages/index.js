@@ -3,10 +3,10 @@ import Photographer from "../components/photographerComponent.js";
 async function getPhotographers() {
     try {
         // Récupère les datas des photographes
-        const response = await fetch('./data/photographers.json')
+        const response = await fetch("./data/photographers.json");
         // En cas d'erreur
         if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des données.');
+            throw new Error("Erreur lors de la récupération des données.");
         }
         const data = await response.json();
         console.log(data);
@@ -16,7 +16,7 @@ async function getPhotographers() {
     }
 }
 
-// Foncction pour afficher les données des photographes
+// Fonction pour afficher les données des photographes
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
 

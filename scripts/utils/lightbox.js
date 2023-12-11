@@ -11,16 +11,16 @@ class Lightbox {
 
     // Méthode pour ouvrir la Lightbox
     openLightbox() {
-        console.log('Opening lightbox for', this.media.title);
+        console.log("Opening lightbox for", this.media.title);
         const lightboxFragment = document.createDocumentFragment();
 
         // Création de l'overlay de la lightbox
-        const lightboxOverlay = document.createElement('div');
-        lightboxOverlay.classList.add('lightbox-overlay');
+        const lightboxOverlay = document.createElement("div");
+        lightboxOverlay.classList.add("lightbox-overlay");
 
         // Création du conteneur de la lightbox
-        const lightboxContainer = document.createElement('div');
-        lightboxContainer.classList.add('lightbox-container');
+        const lightboxContainer = document.createElement("div");
+        lightboxContainer.classList.add("lightbox-container");
 
         // Création de l'élément média (image ou vidéo)
         const mediaElement = this.media.image
@@ -30,24 +30,24 @@ class Lightbox {
         lightboxContainer.appendChild(mediaElement);
 
         // Création des boutons précédent et suivant pour naviguer entre les médias
-        const prevButton = document.createElement('button');
-        prevButton.textContent = '<';
-        prevButton.classList.add('lightbox-previous-button');
+        const prevButton = document.createElement("button");
+        prevButton.textContent = "<";
+        prevButton.classList.add("lightbox-previous-button");
         lightboxContainer.appendChild(prevButton);
 
-        const nextButton = document.createElement('button');
-        nextButton.textContent = '>';
-        nextButton.classList.add('lightbox-next-button');
+        const nextButton = document.createElement("button");
+        nextButton.textContent = ">";
+        nextButton.classList.add("lightbox-next-button");
         lightboxContainer.appendChild(nextButton);
 
-        prevButton.addEventListener('click', this.goToPrevious);
-        nextButton.addEventListener('click', this.goToNext);
+        prevButton.addEventListener("click", this.goToPrevious);
+        nextButton.addEventListener("click", this.goToNext);
 
         // Création du bouton de fermeture de la Lightbox
-        const closeButton = document.createElement('button');
-        closeButton.textContent = '×';
-        closeButton.classList.add('lightbox-close-button');
-        closeButton.addEventListener('click', () => this.closeLightbox(true));
+        const closeButton = document.createElement("button");
+        closeButton.textContent = "×";
+        closeButton.classList.add("lightbox-close-button");
+        closeButton.addEventListener("click", () => this.closeLightbox(true));
         lightboxContainer.appendChild(closeButton);
 
         lightboxOverlay.appendChild(lightboxContainer);
@@ -55,12 +55,12 @@ class Lightbox {
         document.body.appendChild(lightboxFragment);
 
         // Désactivation du scroll de la page
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = "hidden";
     }
 
     // Méthode pour créer un élément image
     createImageElement(imageFileName) {
-        const img = document.createElement('img');
+        const img = document.createElement("img");
         img.src = `./src/images/others/${imageFileName}`;
         img.alt = this.media.title;
         return img;
@@ -68,7 +68,7 @@ class Lightbox {
 
     // Méthode pour créer un élément vidéo
     createVideoElement(videoFileName) {
-        const video = document.createElement('video');
+        const video = document.createElement("video");
         video.src = `./src/images/others/${videoFileName}`;
         video.controls = true;
         video.autoplay = true;
@@ -103,10 +103,10 @@ class Lightbox {
 
     // Méthode pour fermer la Lightbox
     closeLightbox(close = false) {
-        const lightboxOverlay = document.querySelector('.lightbox-overlay');
+        const lightboxOverlay = document.querySelector(".lightbox-overlay");
         lightboxOverlay && lightboxOverlay.remove();
         // Rétablit le défilement de la page
-        if (close) document.body.style.overflow = '';
+        if (close) document.body.style.overflow = "";
     }
 }
 

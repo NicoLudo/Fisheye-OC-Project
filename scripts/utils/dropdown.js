@@ -1,10 +1,10 @@
 const initDropdown = () => {
-    const dropdown = document.getElementById('dropdown-options');
-    const selectedOption = document.getElementById('selected-option');
+    const dropdown = document.getElementById("dropdown-options");
+    const selectedOption = document.getElementById("selected-option");
 
-    dropdown.addEventListener('click', function (event) {
-        const option = event.target.closest('.sorting-option a');
-        if (!option) return; // Si le clic n'est pas sur une option, ne rien faire
+    dropdown.addEventListener("click", function (event) {
+        const option = event.target.closest(".sorting-option a");
+        if (!option) return;
 
         event.preventDefault();
 
@@ -15,29 +15,29 @@ const initDropdown = () => {
         dropdown.insertBefore(option.parentElement, dropdown.firstChild);
 
         // Marque l'option comme sélectionnée
-        const previouslySelected = dropdown.querySelector('.sorting-option.selected');
+        const previouslySelected = dropdown.querySelector(".sorting-option.selected");
         if (previouslySelected) {
-            previouslySelected.classList.remove('selected');
+            previouslySelected.classList.remove("selected");
         }
-        option.parentElement.classList.add('selected');
+        option.parentElement.classList.add("selected");
 
         // Ferme le dropdown et met à jour la flèche
-        selectedOption.classList.toggle('open');
-        dropdown.classList.add('hidden');
+        selectedOption.classList.toggle("open");
+        dropdown.classList.add("hidden");
     });
 
     // Ouvrir ou fermer le dropdown
-    selectedOption.addEventListener('click', function (event) {
-        dropdown.classList.toggle('hidden');
-        this.classList.toggle('open');
+    selectedOption.addEventListener("click", function (event) {
+        dropdown.classList.toggle("hidden");
+        this.classList.toggle("open");
         event.stopPropagation();
     });
 
     // Fermer le dropdown si on clique en dehors
-    document.addEventListener('click', (event) => {
+    document.addEventListener("click", (event) => {
         if (!selectedOption.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.classList.add('hidden');
-            selectedOption.classList.remove('open');
+            dropdown.classList.add("hidden");
+            selectedOption.classList.remove("open");
         }
     });
 };

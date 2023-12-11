@@ -4,24 +4,24 @@ import initDropdown from "../utils/dropdown.js";
 
 // Récupération de l'ID du photographe 
 const urlParams = new URLSearchParams(window.location.search);
-const photographerId = urlParams.get('id');
+const photographerId = urlParams.get("id");
 
 // Variables globales
 let globalData = null;
 let mediaDOMElements = [];
 
 // Élements du DOM
-const photographerNameElement = document.querySelector('#photographer_name');
-const mediaContainer = document.querySelector('#media-list');
-const photographerPriceElement = document.querySelector('#photographer-price');
-const totalLikesElement = document.querySelector('#total-likes');
+const photographerNameElement = document.querySelector("#photographer_name");
+const mediaContainer = document.querySelector("#media-list");
+const photographerPriceElement = document.querySelector("#photographer-price");
+const totalLikesElement = document.querySelector("#total-likes");
 
 // Récupère les données des photographes et des médias à partir du JSON
 async function fetchData() {
     try {
-        const response = await fetch('./data/photographers.json');
+        const response = await fetch("./data/photographers.json");
         if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des données.');
+            throw new Error("Erreur lors de la récupération des données.");
         }
         globalData = await response.json();
         globalData.photographers = new Map(globalData.photographers.map(p => [p.id, p]));
@@ -37,7 +37,7 @@ function getPhotographerById(id) {
 
 // Affichage de la bannière du photographe
 function displayBanner(photographerData) {
-    const mainElement = document.querySelector('.photograph-header');
+    const mainElement = document.querySelector(".photograph-header");
     const photographerBanner = new PhotographerBanner(photographerData);
     mainElement.appendChild(photographerBanner.getBannerDOM());
 }
@@ -54,7 +54,7 @@ function displayMedia(photographerId) {
     if (globalData) {
         let mediaList = globalData.media.filter(media => media.photographerId === parseInt(photographerId));
         mediaDOMElements = [];
-        mediaContainer.innerHTML = '';
+        mediaContainer.innerHTML = "";
         mediaList.forEach((mediaItem, index) => {
             const media = new PhotographerMedias(mediaItem, mediaList, index);
             const mediaDOM = media.getMediaDOM();
@@ -63,21 +63,21 @@ function displayMedia(photographerId) {
             mediaContainer.appendChild(mediaDOM);
         });
         attachSortEventListeners(mediaList);
-        sortAndDisplayMedia(mediaList, 'likes');
+        sortAndDisplayMedia(mediaList, "likes");
     }
 }
 
 // Écouteurs d'événements pour le trie des médias
 function attachSortEventListeners(mediaList) {
-    document.querySelector('#sort-popularity').addEventListener('click', () => sortAndDisplayMedia(mediaList, 'likes'));
-    document.querySelector('#sort-date').addEventListener('click', () => sortAndDisplayMedia(mediaList, 'date'));
-    document.querySelector('#sort-title').addEventListener('click', () => sortAndDisplayMedia(mediaList, 'title'));
+    document.querySelector("#sort-popularity").addEventListener("click", () => sortAndDisplayMedia(mediaList, "likes"));
+    document.querySelector("#sort-date").addEventListener("click", () => sortAndDisplayMedia(mediaList, "date"));
+    document.querySelector("#sort-title").addEventListener("click", () => sortAndDisplayMedia(mediaList, "title"));
 }
 
 // Tri et affichage des médias
 function sortAndDisplayMedia(mediaList, sortBy) {
     const sortedList = [...mediaList].sort((a, b) => {
-        if (sortBy === 'date' || sortBy === 'title') {
+        if (sortBy === "date" || sortBy === "title") {
             return a[sortBy].localeCompare(b[sortBy]);
         } else {
             return b[sortBy] - a[sortBy];
@@ -121,7 +121,7 @@ async function init() {
             setPhotographerNameInModal(photographerData.name);
             updatePhotographerInfoBox(photographerData);
         } else {
-            console.error('Photographe non trouvé.');
+            console.error("Photographe non trouvé.");
         }
     } else {
         console.error("ID du photographe non fourni dans l'URL.");

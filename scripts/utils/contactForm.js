@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Stock les éléments du DOM
     const elements = {
-        contactButton: document.querySelector('.contact_button'),
-        closeButton: document.querySelector('.close_button'),
-        contactForm: document.querySelector('.contactForm'),
+        contactButton: document.querySelector(".contact_button"),
+        closeButton: document.querySelector(".close_button"),
+        contactForm: document.querySelector(".contactForm"),
         modal: document.getElementById("contact_modal"),
-        closeBTN: document.querySelector('.modal_close_btn')
+        closeBTN: document.querySelector(".modal_close_btn")
     };
 
     // Ajout d'un écouteur d'événements pour les clics
@@ -16,26 +16,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ajout d'un écouteur d'événements pour l'envoie du formulaire
     if (elements.contactForm) {
-        elements.contactForm.addEventListener('submit', handleFormSubmit);
+        elements.contactForm.addEventListener("submit", handleFormSubmit);
     }
 
     // Ajout d'un écouteur d'événements pour la suppression des écouteurs d'événements
     window.addEventListener("unload", () => {
-        if (elements.contactButton) elements.contactButton.removeEventListener('click', displayModal);
-        if (elements.closeButton) elements.closeButton.removeEventListener('click', closeModal);
-        if (elements.contactForm) elements.contactForm.removeEventListener('submit', handleFormSubmit);
+        if (elements.contactButton) elements.contactButton.removeEventListener("click", displayModal);
+        if (elements.closeButton) elements.closeButton.removeEventListener("click", closeModal);
+        if (elements.contactForm) elements.contactForm.removeEventListener("submit", handleFormSubmit);
     });
 
     // Ajout de la tabulation pour la bouton de fermeture
     if (elements.closeBTN) {
         elements.closeBTN.tabIndex = 0;
-        elements.closeBTN.addEventListener('keyup', (e) => this.handleMediaKeyUp(e));
+        elements.closeBTN.addEventListener("keyup", handleMediaKeyUp);
     }
 });
 
-// Méthode pour gérer la touche 'Entrée' 
+// Pour gérer la touche "Entrée" 
 function handleMediaKeyUp(e) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
         closeModal();
     }
 }
