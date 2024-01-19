@@ -9,7 +9,6 @@ async function getPhotographers() {
             throw new Error("Erreur lors de la récupération des données.");
         }
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
         console.error("Il y a eu un problème avec l'opération fetch : ", error.message);
