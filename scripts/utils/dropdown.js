@@ -4,6 +4,8 @@ const initDropdown = () => {
 
     dropdown.addEventListener("click", function (event) {
         const option = event.target.closest(".sorting-option a");
+
+        // Si rien n'est trouvé (clic en dehors des options), alors ne fait rien
         if (!option) return;
 
         event.preventDefault();
@@ -14,7 +16,7 @@ const initDropdown = () => {
         // Déplace l'option choisie vers le haut
         dropdown.insertBefore(option.parentElement, dropdown.firstChild);
 
-        // Marque l'option comme sélectionnée
+        // Enlève l'ancienne option comme sélectionnée et marque l'option actuelle comme sélectionnée
         const previouslySelected = dropdown.querySelector(".sorting-option.selected");
         if (previouslySelected) {
             previouslySelected.classList.remove("selected");

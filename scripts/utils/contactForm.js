@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.contactForm.addEventListener("submit", handleFormSubmit);
     }
 
-    // Ajout d'un écouteur d'événements pour la suppression des écouteurs d'événements
+    // La suppression des écouteurs d'événements pour éviter des problèmes
     window.addEventListener("unload", () => {
         if (elements.contactButton) elements.contactButton.removeEventListener("click", displayModal);
         if (elements.closeButton) elements.closeButton.removeEventListener("click", closeModal);
         if (elements.contactForm) elements.contactForm.removeEventListener("submit", handleFormSubmit);
     });
 
-    // Ajout de la tabulation pour la bouton de fermeture
+    // La tabulation pour le bouton de fermeture
     if (elements.closeBTN) {
         elements.closeBTN.tabIndex = 0;
         elements.closeBTN.addEventListener("keyup", handleMediaKeyUp);
