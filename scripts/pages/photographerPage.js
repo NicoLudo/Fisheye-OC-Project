@@ -126,7 +126,19 @@ async function init() {
     } else {
         console.error("ID du photographe non fourni dans l'URL.");
     }
+
+    // Changement de likes
+    document.addEventListener('likeUpdated', (event) => {
+        const likeChange = event.detail;
+        updateTotalLikes(likeChange);
+    });
+
     initDropdown();
+}
+
+function updateTotalLikes(likeChange) {
+    const currentLikes = parseInt(totalLikesElement.textContent);
+    totalLikesElement.textContent = currentLikes + likeChange;
 }
 
 init();

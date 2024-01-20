@@ -115,7 +115,7 @@ class Media {
         const title = this.createMediaTitle();
         const likes = this.createLikesElement();
 
-        // Document Fragement pour les performances
+        // Document Fragment pour les performances
         const fragment = document.createDocumentFragment();
         fragment.appendChild(title);
         fragment.appendChild(likes);
@@ -144,8 +144,11 @@ class Media {
     // Méthode pour basculer les likes
     toggleLikes(likesElement) {
         this.isLiked = !this.isLiked;
-        this.likes += this.isLiked ? 1 : -1;
+        const likeChange = this.isLiked ? 1 : -1;
+        this.likes += likeChange;
         likesElement.textContent = `${this.likes} ${this.isLiked ? "❤️" : "♡"}`;
+
+        document.dispatchEvent(new CustomEvent('likeUpdated', { detail: likeChange }));
     }
 }
 
