@@ -115,6 +115,7 @@ class Media {
         const title = this.createMediaTitle();
         const likes = this.createLikesElement();
 
+        // Document Fragement pour les performances
         const fragment = document.createDocumentFragment();
         fragment.appendChild(title);
         fragment.appendChild(likes);
